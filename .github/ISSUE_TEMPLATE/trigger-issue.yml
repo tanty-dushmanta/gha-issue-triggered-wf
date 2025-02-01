@@ -1,0 +1,23 @@
+name: Trigger Workflow Manually
+description: Trigger a workflow file from here
+title: "[Issue]: "
+labels: ["issue"]
+
+body:
+  - type: input
+    id: issue-name
+    attributes:
+      label: "Issues Name"
+      description: "Please enter your issue details"
+      placeholder: "X changes"
+    validations:
+      required: true
+
+  - type: input
+    id: issue-type
+    attributes:
+      label: "Your Issues Type"
+      description: "Please enter your issue types"
+      placeholder: "Change request, Development, Refactor etc."
+    validations:
+      required: true

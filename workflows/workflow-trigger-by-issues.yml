@@ -1,0 +1,26 @@
+name: Validate Workflow Trigger by Issue Template
+
+on:
+  issues:
+    types: 
+      - opened
+      - edeited
+
+jobs:
+  validate-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate issue form field
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue = context.payload.issue;
+            const issueBody = issue.body;
+
+            echo "issueBody $issueBody"
+
+            # Extract value by filtering ID
+            name=$(echo "$issueBody" | jq -r '.[] | select(.id=="issue-name") | .response')
+            echo "name of the issues: $name"
+
