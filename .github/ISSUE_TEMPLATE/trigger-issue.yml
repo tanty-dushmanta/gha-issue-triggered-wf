@@ -1,4 +1,4 @@
-name: Trigger Workflow Manually
+name: Issue Trigger Workflow
 description: Trigger a workflow file from here
 title: "[Issue]: "
 labels: ["issue"]
