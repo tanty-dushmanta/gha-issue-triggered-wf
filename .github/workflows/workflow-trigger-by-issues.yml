@@ -15,12 +15,20 @@ jobs:
         with:
           github-token: ${{ secrets.GHA_TOKEN }}
           script: |
-            issue = context.payload.issue;
-            issueBody = issue.body;
+            const issue = context.payload.issue;
+            const issueBody = issue.body;
+            console.log("issueBody :", issueBody);
+            try {
+              // Parse issue body as JSON array
+              const bodyArray = JSON.parse(issueBody);
+              console.log("issueBody :", issueBody);
+            }catch (error) {
+              console.error(error.message);
+              github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `Error: ${error.message} \n\nPlease provide valid issue details.`
+              });
 
-            echo "issueBody $issueBody"
-
-            # Extract value by filtering ID
-            name=$(echo "$issueBody" | jq -r '.[] | select(.id=="issue-name") | .response')
-            echo "name of the issues: $name"
-
+            }
