@@ -13,10 +13,10 @@ jobs:
       - name: Validate issue form field
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GHA_TOKEN }}
           script: |
-            const issue = context.payload.issue;
-            const issueBody = issue.body;
+            issue = context.payload.issue;
+            issueBody = issue.body;
 
             echo "issueBody $issueBody"
 
